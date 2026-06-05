@@ -191,7 +191,7 @@ st.dataframe(
         "Inertia": "{:,.2f}",
     }).highlight_max(subset=["Silhouette ↑", "Calinski-Harabasz ↑"], props="background-color: #1e3a5f; color: #e2e8f0;")
       .highlight_min(subset=["Davies-Bouldin ↓"], props="background-color: #1e3a5f; color: #e2e8f0;"),
-    use_container_width=True,
+    width="stretch",
     hide_index=True,
 )
 
@@ -203,12 +203,12 @@ st.markdown("###  Visualisasi Metrik")
 
 # Metrics comparison subplot
 fig_metrics = plot_metrics_comparison(eval_df)
-st.plotly_chart(fig_metrics, use_container_width=True)
+st.plotly_chart(fig_metrics, width="stretch")
 
 # Elbow curve
 st.markdown("###  Elbow Method (Inertia)")
 fig_elbow = plot_elbow_curve(eval_df)
-st.plotly_chart(fig_elbow, use_container_width=True)
+st.plotly_chart(fig_elbow, width="stretch")
 
 st.markdown("""
 <div style="background-color: #1e293b; padding: 1.2rem; border-radius: 8px; border-left: 4px solid #facc15; font-size: 0.95rem; color: #cbd5e1; margin-top: -1rem; margin-bottom: 2rem;">

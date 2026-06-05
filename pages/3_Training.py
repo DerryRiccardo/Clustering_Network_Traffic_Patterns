@@ -144,7 +144,7 @@ with col_action:
         st.stop()
         
     st.markdown("<br>", unsafe_allow_html=True)
-    start_training = st.button(" Mulai Training", type="primary", use_container_width=True)
+    start_training = st.button(" Mulai Training", type="primary", width="stretch")
 
 with col_info:
     # 1. Reminder Data
@@ -213,7 +213,7 @@ if start_training:
             "Inertia": f"{m.inertia_:,.2f}",
             "Iterations": m.n_iter_,
         })
-    st.dataframe(pd.DataFrame(summary_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(summary_rows), width="stretch", hide_index=True)
     
     st.markdown("""
     <div class="info-card" style="margin-top:1rem;">
@@ -241,7 +241,7 @@ elif "all_models" in st.session_state:
             "Inertia": f"{m.inertia_:,.2f}",
             "Iterations": m.n_iter_,
         })
-    st.dataframe(pd.DataFrame(summary_rows), use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(summary_rows), width="stretch", hide_index=True)
 
     st.markdown("""
     <div class="info-card" style="margin-top:1rem;">

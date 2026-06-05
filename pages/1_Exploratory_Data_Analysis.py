@@ -197,11 +197,11 @@ with st.expander(" Tampilkan Missing & Infinite Values", expanded=False):
             has_issues.style.format({
                 "Missing %": "{:.2f}%",
             }),
-            use_container_width=True,
+            width="stretch",
             hide_index=True,
         )
 
-    st.dataframe(missing_df, use_container_width=True, hide_index=True, height=300)
+    st.dataframe(missing_df, width="stretch", hide_index=True, height=300)
 
     st.markdown("""
     <div class="insight-box">
@@ -280,7 +280,7 @@ with st.expander(" Tampilkan Penjelasan Kolom (Glossary)", expanded=False):
         })
 
     glossary_df = pd.DataFrame(glossary_data)
-    st.dataframe(glossary_df, use_container_width=True, hide_index=True, height=400)
+    st.dataframe(glossary_df, width="stretch", hide_index=True, height=400)
 
 # 3. Descriptive Statistics
 with st.expander(" Tampilkan Statistik Deskriptif Keseluruhan", expanded=False):
@@ -290,7 +290,7 @@ with st.expander(" Tampilkan Statistik Deskriptif Keseluruhan", expanded=False):
     )
 
     stats = get_descriptive_stats(eda_df)
-    st.dataframe(stats.style.format("{:.2f}"), use_container_width=True, height=400)
+    st.dataframe(stats.style.format("{:.2f}"), width="stretch", height=400)
 
     st.markdown("""
     <div class="insight-box">
@@ -369,7 +369,7 @@ with tab_explorer:
                 f"{col_data.nunique():,}"
             ]
         })
-        st.dataframe(basic_info, hide_index=True, use_container_width=True)
+        st.dataframe(basic_info, hide_index=True, width="stretch")
         
         if pd.api.types.is_numeric_dtype(col_data):
             st.markdown("#####  Statistics")
@@ -399,10 +399,10 @@ with tab_explorer:
                     skew_verdict
                 ]
             })
-            st.dataframe(stats_data, hide_index=True, use_container_width=True)
+            st.dataframe(stats_data, hide_index=True, width="stretch")
             
         st.markdown("#####  Sample Data")
-        st.dataframe(raw_df[[explorer_col]].head(10), use_container_width=True)
+        st.dataframe(raw_df[[explorer_col]].head(10), width="stretch")
 
     with col_right:
         if pd.api.types.is_numeric_dtype(col_data):
@@ -440,10 +440,10 @@ with tab_explorer:
                 xaxis_tickangle=-45,
                 height=500,
             )
-            st.plotly_chart(fig_vc, use_container_width=True)
+            st.plotly_chart(fig_vc, width="stretch")
             
             st.markdown("#####  Rincian Value Counts")
-            st.dataframe(vc, use_container_width=True, hide_index=True)
+            st.dataframe(vc, width="stretch", hide_index=True)
 
 
 # ── Tab 2: Boxplot Comparison ────────────────
@@ -479,7 +479,7 @@ with tab_box:
         "Nilai *outlier* dihitung menggunakan metode matematis IQR (Interquartile Range)."
     )
     outlier_info = get_outlier_info(eda_df)
-    st.dataframe(outlier_info.style.format("{:.2f}"), use_container_width=True)
+    st.dataframe(outlier_info.style.format("{:.2f}"), width="stretch")
 
     st.markdown("""
     <div class="insight-box">
@@ -517,7 +517,7 @@ with tab_corr:
     top_corr = corr_pairs.sort_values("Abs Correlation", ascending=False).head(10)
     st.dataframe(
         top_corr[["Feature 1", "Feature 2", "Correlation"]].style.format({"Correlation": "{:.4f}"}),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
     
@@ -553,7 +553,7 @@ with tab_skew:
     skew_info = get_skewness_info(eda_df)
     st.dataframe(
         skew_info.style.format({"skewness": "{:.3f}", "abs_skewness": "{:.3f}"}),
-        use_container_width=True,
+        width="stretch",
     )
 
     very_skewed = skew_info[skew_info["abs_skewness"] > 2.0]

@@ -180,7 +180,7 @@ with tab_pca:
     pca_idx = rng.choice(len(pca_data), pca_sample_size, replace=False)
     
     fig_pca = plot_pca_scatter(pca_data[pca_idx], cluster_labels[pca_idx], pca_obj)
-    st.plotly_chart(fig_pca, use_container_width=True)
+    st.plotly_chart(fig_pca, width="stretch")
     st.session_state["pca_result"] = pca_data
 
     ev = pca_obj.explained_variance_ratio_
@@ -203,7 +203,7 @@ with tab_tsne:
             idx = rng.choice(len(scaled_data), tsne_sample_size, replace=False)
             tsne_data = compute_tsne(scaled_data[idx])
             fig_tsne = plot_tsne_scatter(tsne_data, cluster_labels[idx])
-            st.plotly_chart(fig_tsne, use_container_width=True)
+            st.plotly_chart(fig_tsne, width="stretch")
     else:
         st.info("Klik tombol di atas untuk menjalankan t-SNE.")
 
@@ -222,7 +222,7 @@ st.markdown("""
 col_chart, col_table = st.columns([2, 1])
 with col_chart:
     fig_dist = plot_cluster_distribution(cluster_labels)
-    st.plotly_chart(fig_dist, use_container_width=True)
+    st.plotly_chart(fig_dist, width="stretch")
 
 with col_table:
     counts = pd.Series(cluster_labels).value_counts().sort_index()
@@ -231,7 +231,7 @@ with col_table:
         "Count": counts.values,
         "Percentage": (counts.values / counts.sum() * 100).round(2),
     })
-    st.dataframe(dist_df, use_container_width=True, hide_index=True)
+    st.dataframe(dist_df, width="stretch", hide_index=True)
 
 
 # ──────────────────────────────────────────────
@@ -250,8 +250,7 @@ st.session_state["cluster_profiles"] = summary
 
 st.dataframe(
     summary.style.format("{:.2f}"),
-    use_container_width=True,
-    height=300,
+    width="stretch",
 )
 
 # Heatmap
@@ -377,7 +376,7 @@ if clean_labels is not None:
 """, unsafe_allow_html=True)
 
     fig_atk = plot_attack_type_by_cluster(cluster_labels, clean_labels)
-    st.plotly_chart(fig_atk, use_container_width=True)
+    st.plotly_chart(fig_atk, width="stretch")
 
     # Cross-tab
     with st.expander(" Tampilkan Tabel Validasi Silang (Cross-Tabulation)"):
@@ -389,7 +388,7 @@ if clean_labels is not None:
             pd.Series(cluster_labels, name="Cluster"),
             clean_labels.reset_index(drop=True),
         )
-        st.dataframe(ct, use_container_width=True)
+        st.dataframe(ct, width="stretch")
 
 
 # ──────────────────────────────────────────────

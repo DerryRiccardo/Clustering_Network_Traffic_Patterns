@@ -267,13 +267,13 @@ col_bf, col_af = st.columns(2)
 with col_bf:
     st.markdown("**Statistik Sebelum Scaling (Mentah)**")
     before_stats = transformed_df.describe().loc[["mean", "std", "min", "max"]].T
-    st.dataframe(before_stats.style.format("{:.2f}"), use_container_width=True)
+    st.dataframe(before_stats.style.format("{:.2f}"), width="stretch")
 
 with col_af:
     st.markdown("**Statistik Sesudah Scaling (Normalisasi)**")
     scaled_df = pd.DataFrame(scaled_data, columns=feature_names)
     after_stats = scaled_df.describe().loc[["mean", "std", "min", "max"]].T
-    st.dataframe(after_stats.style.format("{:.4f}"), use_container_width=True)
+    st.dataframe(after_stats.style.format("{:.4f}"), width="stretch")
 
 
 # ──────────────────────────────────────────────
@@ -300,7 +300,7 @@ fig = plot_before_after_scaling(
 st.pyplot(fig)
 
 st.markdown("###  Preview Final Data")
-st.dataframe(scaled_df.head(20), use_container_width=True, height=350)
+st.dataframe(scaled_df.head(20), width="stretch", height=350)
 
 # Simpan ke Session State (Auto-save)
 st.session_state["raw_data"] = raw_df

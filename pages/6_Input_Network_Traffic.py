@@ -167,16 +167,16 @@ def load_preset(cluster_id: int):
             st.session_state[f"traffic_input_{f}"] = float(summary.loc[cluster_id, f])
 
 with col_s1:
-    if st.button(" Muat Profil Normal (Median Dataset)", use_container_width=True):
+    if st.button(" Muat Profil Normal (Median Dataset)", width="stretch"):
         load_preset(-1)
 
 with col_s2:
-    if st.button(" Muat Profil Rata-rata Cluster 1", use_container_width=True):
+    if st.button(" Muat Profil Rata-rata Cluster 1", width="stretch"):
         load_preset(1)
 
 with col_s3:
     last_c = summary.index[-1]
-    if st.button(f" Muat Profil Rata-rata Cluster {last_c}", use_container_width=True):
+    if st.button(f" Muat Profil Rata-rata Cluster {last_c}", width="stretch"):
         load_preset(last_c)
 
 st.markdown("---")
@@ -188,16 +188,18 @@ with st.form("traffic_input_form"):
     columns = [col_a, col_b, col_c]
 
     for idx, feature in enumerate(feature_names):
+        key = f"traffic_input_{feature}"
+        if key not in st.session_state:
+            st.session_state[key] = float(defaults[feature])
         with columns[idx % 3]:
             input_values[feature] = st.number_input(
                 feature,
-                value=float(defaults[feature]),
                 step=1.0,
                 format="%.6f",
-                key=f"traffic_input_{feature}",
+                key=key,
             )
 
-    submitted = st.form_submit_button("Prediksi Cluster", type="primary", use_container_width=True)
+    submitted = st.form_submit_button("Prediksi Cluster", type="primary", width="stretch")
 
 if submitted:
     input_df = pd.DataFrame([input_values], columns=feature_names)
@@ -287,12 +289,12 @@ if submitted:
     ).sort_values("Distance to Centroid")
     st.dataframe(
         distance_df.style.format({"Distance to Centroid": "{:.4f}"}),
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
     )
 
     with st.expander("Data input yang diproses"):
-        st.dataframe(input_df, use_container_width=True, hide_index=True)
+        st.dataframe(input_df, width="stretch", hide_index=True)
 
 st.markdown("---")
 st.caption(

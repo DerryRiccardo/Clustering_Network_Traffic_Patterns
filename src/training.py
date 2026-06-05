@@ -75,9 +75,10 @@ def train_multiple_k(
     """
     if k_range is None:
         k_range = K_RANGE
+    k_list = list(k_range)
     models: dict[int, KMeans] = {}
-    total = len(list(k_range))
-    for idx, k in enumerate(k_range):
+    total = len(k_list)
+    for idx, k in enumerate(k_list):
         models[k] = train_kmeans(data, k, random_state)
         if progress_callback:
             progress_callback(idx + 1, total)

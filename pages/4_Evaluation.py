@@ -106,10 +106,10 @@ models = st.session_state["all_models"]
 # Evaluate
 # ──────────────────────────────────────────────
 @st.cache_data(show_spinner="Menghitung metrik evaluasi …")
-def _evaluate_metrics(scaled_data_val, models_keys):
-    return evaluate_multiple_k(scaled_data_val, st.session_state["all_models"])
+def _evaluate_metrics(scaled_data_val, _models: dict):
+    return evaluate_multiple_k(scaled_data_val, _models)
 
-eval_df = _evaluate_metrics(scaled_data, tuple(sorted(models.keys())))
+eval_df = _evaluate_metrics(scaled_data, models)
 best_k = get_best_k(eval_df)
 
 # Persist

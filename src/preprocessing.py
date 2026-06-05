@@ -165,6 +165,8 @@ def transform_new_data(
             "Input produces non-finite values after preprocessing. "
             "Please check negative or extremely large feature values."
         )
+    if scaler is None:
+        return transformed.to_numpy()
     return scaler.transform(transformed)
 
 

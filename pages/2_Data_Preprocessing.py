@@ -123,7 +123,7 @@ with st.expander(" Ubah Pemilihan Fitur (52 Kolom Tersedia)", expanded=False):
 
     for i, col_name in enumerate(numeric_cols):
         is_selected_by_default = col_name in current_selection
-        if cols[i % 3].checkbox(col_name, value=is_selected_by_default):
+        if cols[i % 3].checkbox(col_name, value=is_selected_by_default, key=f"feat_chk_{i}"):
             selected_features.append(col_name)
 
 if len(selected_features) < 2:

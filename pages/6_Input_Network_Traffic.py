@@ -167,16 +167,16 @@ def load_preset(cluster_id: int):
             st.session_state[f"traffic_input_{f}"] = float(summary.loc[cluster_id, f])
 
 with col_s1:
-    if st.button(" Muat Profil Normal (Median Dataset)", width="stretch"):
+    if st.button(" Muat Profil Normal (Median Dataset)", width="stretch", key="btn_preset_normal"):
         load_preset(-1)
 
 with col_s2:
-    if st.button(" Muat Profil Rata-rata Cluster 1", width="stretch"):
+    if st.button(" Muat Profil Rata-rata Cluster 1", width="stretch", key="btn_preset_c1"):
         load_preset(1)
 
 with col_s3:
     last_c = summary.index[-1]
-    if st.button(f" Muat Profil Rata-rata Cluster {last_c}", width="stretch"):
+    if st.button(f" Muat Profil Rata-rata Cluster {last_c}", width="stretch", key="btn_preset_last"):
         load_preset(last_c)
 
 st.markdown("---")

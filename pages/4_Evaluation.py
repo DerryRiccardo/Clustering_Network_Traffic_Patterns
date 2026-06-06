@@ -106,10 +106,10 @@ models = st.session_state["all_models"]
 # Evaluate
 # ──────────────────────────────────────────────
 @st.cache_data(show_spinner="Menghitung metrik evaluasi …")
-def _evaluate_metrics(scaled_data_val, _models: dict):
+def _evaluate_metrics(scaled_data_val, model_keys, _models: dict):
     return evaluate_multiple_k(scaled_data_val, _models)
 
-eval_df = _evaluate_metrics(scaled_data, models)
+eval_df = _evaluate_metrics(scaled_data, tuple(sorted(models.keys())), models)
 best_k = get_best_k(eval_df)
 
 # Persist
@@ -254,7 +254,10 @@ k_opts = sorted(models.keys())
 try:
     def_idx = k_opts.index(st.session_state["user_selected_k"])
 except ValueError:
-    def_idx = k_opts.index(best_k)
+    try:
+        def_idx = k_opts.index(best_k)
+    except ValueError:
+        def_idx = 0
 
 selected_k = st.selectbox(
     "Nilai k yang akan digunakan di halaman Result:",
